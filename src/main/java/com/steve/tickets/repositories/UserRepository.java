@@ -1,7 +1,7 @@
 package com.steve.tickets.repositories;
 
 
-import com.steve.tickets.domain.User;
+import com.steve.tickets.domain.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
