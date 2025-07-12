@@ -9,7 +9,7 @@ import com.steve.tickets.domain.entities.Event;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "string", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface EventMapper {
 
     CreateTicketTypeRequest fromDto(CreateTicketTypeRequestDto dto);

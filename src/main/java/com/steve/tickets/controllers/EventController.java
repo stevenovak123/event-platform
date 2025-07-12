@@ -8,6 +8,8 @@ import com.steve.tickets.mappers.EventMapper;
 import com.steve.tickets.services.EventService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(params = "/api/v1/events")
+@RequestMapping(path = "/api/v1/events")
 @RequiredArgsConstructor
 public class EventController {
     private final EventMapper eventMapper;
@@ -30,6 +32,7 @@ public class EventController {
     public ResponseEntity<CreateEventResponseDto> createEvent(@AuthenticationPrincipal Jwt jwt, @Valid @RequestBody CreateEventRequestDto createEventRequestDto) {
         CreateEventRequest createEventRequest = eventMapper.fromDto(createEventRequestDto);
         UUID userId = UUID.fromString(jwt.getSubject());
+
         Event createdEvent = eventService.createEvent(userId, createEventRequest);
         CreateEventResponseDto createEventResponseDto = eventMapper.toDto(createdEvent);
 

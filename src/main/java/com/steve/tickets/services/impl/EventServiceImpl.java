@@ -9,6 +9,8 @@ import com.steve.tickets.repositories.EventRepository;
 import com.steve.tickets.repositories.UserRepository;
 import com.steve.tickets.services.EventService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,15 +28,17 @@ public class EventServiceImpl implements EventService {
     @Override
     public Event createEvent(UUID organiserID, CreateEventRequest eventRequest) {
         User organiser = userRepository.findById(organiserID).orElseThrow(() -> new UserNotFoundException(String.format("User with ID '%s' is not found", organiserID)));
+        Event eventToCreate = new Event();
         List<TicketType> ticketTypesToCreate = eventRequest.getTicketTypes().stream().map(ticketType -> {
             TicketType ticketTypeToCreate = new TicketType();
             ticketTypeToCreate.setName(ticketType.getName());
             ticketTypeToCreate.setPrice(ticketType.getPrice());
             ticketTypeToCreate.setDescription(ticketType.getDescription());
             ticketTypeToCreate.setTotalAvailable(ticketType.getTotalAvailable());
+            ticketTypeToCreate.setEvent(eventToCreate);
             return ticketTypeToCreate;
         }).toList();
-        Event eventToCreate = new Event();
+
         eventToCreate.setName(eventRequest.getName());
         eventToCreate.setStart(eventRequest.getStart());
         eventToCreate.setEnd(eventRequest.getEnd());
@@ -43,6 +47,12 @@ public class EventServiceImpl implements EventService {
         eventToCreate.setSalesEnd(eventRequest.getSalesEnd());
         eventToCreate.setOrganizer(organiser);
         eventToCreate.setTicketTypes(ticketTypesToCreate);
+        eventToCreate.setStatus(eventRequest.getStatus());
         return eventRepository.save(eventToCreate);
+    }
+
+    @Override
+    public Page<Event> listEventForOrganizer(UUID organizerId, Pageable pageable) {
+return  eventRepository.findByOrganizerId(organizerId, pageable);
     }
 }
