@@ -8,6 +8,7 @@ import com.steve.tickets.domain.CreateEventRequest;
 import com.steve.tickets.domain.UpdateEventRequest;
 import com.steve.tickets.domain.UpdateTicketTypeRequest;
 import com.steve.tickets.domain.entities.Event;
+import com.steve.tickets.domain.entities.EventStatusEnum;
 import com.steve.tickets.domain.entities.TicketType;
 import com.steve.tickets.domain.entities.User;
 import com.steve.tickets.repositories.EventRepository;
@@ -119,5 +120,10 @@ public class EventServiceImpl implements EventService {
     @Transactional
     public void deleteEventForOrganizer(UUID organizerId, UUID id) {
         getEventForOrganizer(organizerId, id).ifPresent(eventRepository::delete);
+    }
+
+    @Override
+    public Page<Event> listPublishedEvent(Pageable pageable) {
+       return eventRepository.findByStatus(EventStatusEnum.PUBLISHED,pageable);
     }
 }
