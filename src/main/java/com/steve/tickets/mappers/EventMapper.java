@@ -2,6 +2,8 @@ package com.steve.tickets.mappers;
 
 import com.steve.tickets.domain.CreateEventRequest;
 import com.steve.tickets.domain.CreateTicketTypeRequest;
+import com.steve.tickets.domain.UpdateEventRequest;
+import com.steve.tickets.domain.UpdateTicketTypeRequest;
 import com.steve.tickets.domain.dtos.*;
 import com.steve.tickets.domain.entities.Event;
 import com.steve.tickets.domain.entities.TicketType;
@@ -25,5 +27,13 @@ public interface EventMapper {
     toGetEventDetailsTicketTypesResponseDto(TicketType ticketType);
 
     GetEventDetailsResponseDto toGetEventDetailsResponseDto(Event event);
+
+    UpdateTicketTypeRequest fromDto(UpdateTicketTypeRequestDto dto);
+
+    UpdateEventRequest fromDto(UpdateEventRequestDto dto);
+
+    UpdateTicketTypeRequestDto toUpdateTicketTypeRequestDto(TicketType ticketType);
+
+    UpdateEventResponseDto toUpdateEventResponseDto(Event event);
 
 }
