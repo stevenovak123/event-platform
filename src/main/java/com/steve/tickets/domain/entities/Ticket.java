@@ -54,7 +54,7 @@ public class Ticket {
     private List<TicketValidation> validations = new ArrayList<>();
 
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
-    private List<QRCode> qrCodes = new ArrayList<>();
+    private List<QrCode> qrCodes = new ArrayList<>();
 
     @CreatedDate
     @Column(name = "created_at", updatable = false, nullable = false)
