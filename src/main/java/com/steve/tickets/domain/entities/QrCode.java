@@ -16,24 +16,23 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class QRCode {
+public class QrCode {
 
     @Id
     @Column(name="id", nullable=false,updatable = false)
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(name="status", nullable = false)
     @Enumerated(EnumType.STRING)
     private QrCodeStatusEnum statusEnum;
 
-    @Column(name="value",nullable = false)
+    @Column(name="value",columnDefinition = "TEXT", nullable = false)
     private String value;
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        QRCode qrCode = (QRCode) o;
+        QrCode qrCode = (QrCode) o;
         return Objects.equals(id, qrCode.id) && statusEnum == qrCode.statusEnum && Objects.equals(value, qrCode.value) && Objects.equals(createdAt, qrCode.createdAt) && Objects.equals(updatedAt, qrCode.updatedAt);
     }
 
