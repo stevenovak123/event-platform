@@ -43,7 +43,7 @@ public class QrCodeServiceImpl implements QrCodeService {
 
             QrCode qrCode = new QrCode();
             qrCode.setId(uniqueId);
-            qrCode.setStatusEnum(QrCodeStatusEnum.ACTIVE);
+            qrCode.setStatus(QrCodeStatusEnum.ACTIVE);
             qrCode.setValue(qrCodeImage);
             qrCode.setTicket(ticket);
             return qrCodeRepository.saveAndFlush(qrCode);

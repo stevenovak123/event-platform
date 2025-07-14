@@ -24,7 +24,7 @@ public class QrCode {
 
     @Column(name="status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private QrCodeStatusEnum statusEnum;
+    private QrCodeStatusEnum status;
 
     @Column(name="value",columnDefinition = "TEXT", nullable = false)
     private String value;
@@ -33,12 +33,12 @@ public class QrCode {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         QrCode qrCode = (QrCode) o;
-        return Objects.equals(id, qrCode.id) && statusEnum == qrCode.statusEnum && Objects.equals(value, qrCode.value) && Objects.equals(createdAt, qrCode.createdAt) && Objects.equals(updatedAt, qrCode.updatedAt);
+        return Objects.equals(id, qrCode.id) && status == qrCode.status && Objects.equals(value, qrCode.value) && Objects.equals(createdAt, qrCode.createdAt) && Objects.equals(updatedAt, qrCode.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, statusEnum, value, createdAt, updatedAt);
+        return Objects.hash(id, status, value, createdAt, updatedAt);
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
